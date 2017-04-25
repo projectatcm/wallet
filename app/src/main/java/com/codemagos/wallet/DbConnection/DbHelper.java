@@ -121,7 +121,18 @@ public class DbHelper extends SQLiteOpenHelper {
         Cursor rs = db.rawQuery(query,params);
         return rs;
     }
-
+    public long addAlarm(SQLiteDatabase db,String time){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("time", time);
+        Log.i(LOG,"Alarm Added");
+        return db.insert("alarm", null, contentValues);
+    }
+    public Cursor getAlarm(SQLiteDatabase db){
+        String query = "Select * from alarm";
+        String[] params = null;
+        Cursor rs = db.rawQuery(query,params);
+        return rs;
+    }
 
 
 

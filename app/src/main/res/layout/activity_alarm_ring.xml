@@ -1,9 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.codemagos.wallet.AlarmRingActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text="Question : 1"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="45 + 50"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txt_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:focusable="true"
+            android:inputType="number"
+            android:text="95"
+            android:textColor="@color/colorPrimary"
+            android:textSize="80sp"
+            android:textStyle="bold"
+
+            />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="stopAlarm"
+        android:text="Submit" />
+</RelativeLayout>
