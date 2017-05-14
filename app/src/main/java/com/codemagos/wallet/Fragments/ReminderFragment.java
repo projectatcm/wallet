@@ -63,8 +63,6 @@ public class ReminderFragment extends Fragment {
 /*-------------------*/
         btn_new = (FloatingActionButton) rootView.findViewById(R.id.btn_new);
 
-
-
         btn_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
