@@ -85,6 +85,7 @@ public class BankUpdateAcivity extends AppCompatActivity {
                         //                                          int[] grantResults)
                         // to handle the case where the user grants the permission. See the documentation
                         // for ActivityCompat#requestPermissions for more details.
+                        Toast.makeText(getApplicationContext(), "Permission Required..", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     Toast.makeText(getApplicationContext(), "Updating your Balance....", Toast.LENGTH_SHORT).show();

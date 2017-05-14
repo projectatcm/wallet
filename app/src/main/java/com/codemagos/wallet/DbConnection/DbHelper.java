@@ -54,18 +54,21 @@ public class DbHelper extends SQLiteOpenHelper {
         Log.i(LOG,"Tables created !");
     }
 
-    public void addReminder(SQLiteDatabase db,String time,String type){
+    public long addReminder(SQLiteDatabase db,String time,String type){
         ContentValues contentValues = new ContentValues();
         contentValues.put("time", time);
         contentValues.put("message", type);
-        db.insert("reminder", null, contentValues);
         Log.i(LOG,"reminder Added");
+        return db.insert("reminder", null, contentValues);
     }
     public Cursor getReminder(SQLiteDatabase db){
         String query = "Select * from reminder";
         String[] params = null;
         Cursor rs = db.rawQuery(query,params);
         return rs;
+    }
+    public void deleteReminder(SQLiteDatabase db,String id){
+        db.execSQL("delete from reminder where id='"+id+"'");
     }
 
     public void addCategory(SQLiteDatabase db,String name,String type){
@@ -132,6 +135,9 @@ public class DbHelper extends SQLiteOpenHelper {
         String[] params = null;
         Cursor rs = db.rawQuery(query,params);
         return rs;
+    }
+    public void deleteAlarm(SQLiteDatabase db,String id){
+        db.execSQL("delete from alarm where id='"+id+"'");
     }
 
 

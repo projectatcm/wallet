@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codemagos.wallet.DbConnection.DbHelper;
+
 import java.util.Random;
 
 public class AlarmRingActivity extends AppCompatActivity {
@@ -23,14 +26,20 @@ public class AlarmRingActivity extends AppCompatActivity {
     int limit = 3,count = 0,num1,num2,answer;
     public static final int NOTIFICATION_ID = 100;
     NotificationManager mNotificationmanager;
+    String alarm_id;
+    DbHelper dbHelper;
+    SQLiteDatabase sqLiteDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_ring);
+        dbHelper = new DbHelper(getApplicationContext());
+        sqLiteDatabase = dbHelper.getWritableDatabase();
         txt_count = (TextView) findViewById(R.id.txt_count);
         txt_answer = (TextView) findViewById(R.id.txt_answer);
         txt_question = (TextView) findViewById(R.id.txt_question);
-
+        alarm_id = getIntent().getStringExtra("alarm_id");
+        Toast.makeText(getApplicationContext(),alarm_id,Toast.LENGTH_LONG).show();
 
       /*  Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
@@ -100,8 +109,11 @@ public class AlarmRingActivity extends AppCompatActivity {
         }else{
             Toast.makeText(getApplicationContext(),"Alarm Stoped",Toast.LENGTH_SHORT).show();
             mNotificationmanager.cancel(NOTIFICATION_ID);
+            dbHelper.deleteAlarm(sqLiteDatabase,alarm_id);
+
 finish();
             stopService(svc);
+            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
         }
     }
 

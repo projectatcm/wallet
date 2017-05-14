@@ -78,20 +78,21 @@ public class ReminderActivity extends AppCompatActivity {
     }
 
     private void setAlarm(Calendar targetCal,String message) {
-
-        Intent intent = new Intent(getBaseContext(), ReminderReceiver.class);
-        intent.putExtra("message",message);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getBaseContext(), RQS_1, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(),
-                pendingIntent);
         String time = targetCal.get(Calendar.DAY_OF_MONTH)+"/"+
                 targetCal.get(Calendar.MONTH)+"/" +
                 targetCal.get(Calendar.YEAR)+" - " +
                 targetCal.get(Calendar.HOUR)+" : " +
                 targetCal.get(Calendar.MINUTE);
-        dbHelper.addReminder(sqLiteDatabase,time,message);
+        long alarm_id = dbHelper.addReminder(sqLiteDatabase,time,message);
+        Intent intent = new Intent(getBaseContext(), ReminderReceiver.class);
+        intent.putExtra("message",message);
+        intent.putExtra("alarm_id",""+alarm_id);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getBaseContext(), (int) alarm_id  , intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(),
+                pendingIntent);
+
         Toast.makeText(getApplicationContext(),"Reminder Added",Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(),HomeActivity.class));
         finish();;

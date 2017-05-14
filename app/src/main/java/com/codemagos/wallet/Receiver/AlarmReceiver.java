@@ -21,6 +21,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // TODO Auto-generated method stub
         Toast.makeText(context, "Alarm received!", Toast.LENGTH_LONG).show();
       Intent intent = new Intent(context, AlarmRingActivity.class);
+        intent.putExtra("alarm_id",k2.getStringExtra("alarm_id"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.codemagos.wallet.Fragments.AlarmFragment;
 import com.codemagos.wallet.Fragments.DashBoardFragment;
 import com.codemagos.wallet.Fragments.ExpenseFragment;
+import com.codemagos.wallet.Fragments.ReminderFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         adapter.addFragment(new DashBoardFragment(), "Home");
         adapter.addFragment(new ExpenseFragment(), "Expense");
         adapter.addFragment(new AlarmFragment(), "Alarm");
-        adapter.addFragment(new AlarmFragment(), "Reminder");
+        adapter.addFragment(new ReminderFragment(), "Reminder");
         viewPager.setAdapter(adapter);
     }
 

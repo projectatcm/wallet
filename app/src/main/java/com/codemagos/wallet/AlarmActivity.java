@@ -64,8 +64,9 @@ Button alarm_add;
                         intent.putExtra("title","Hello ");
                         intent.putExtra("message","Reminder of your diary");
                         // TODO Adding alarm into database and getting its inserted id
-                        String alarm_time = selected_hour + " : " + selected_minute + "\n"+selected_day + "/" + (selected_month + 1) + "/"+selected_year;
+                        String alarm_time = selected_hour + " : " + selected_minute + "|"+selected_day + "/" + (selected_month + 1) + "/"+selected_year;
                         long alarm_id =  dbHelper.addAlarm(sqLiteDatabase,alarm_time);
+                        intent.putExtra("alarm_id",""+alarm_id);
                         PendingIntent pi = PendingIntent.getBroadcast(AlarmActivity.this, (int) alarm_id, intent, 0);
                         Calendar cal = Calendar.getInstance();
                         //calendar.add(Calendar.SECOND,10);
@@ -79,6 +80,13 @@ Button alarm_add;
 
                         //cal.add(Calendar.MILLISECOND, (int) cal.getTimeInMillis());
                         am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
+                        Intent go = new Intent(getApplicationContext(),HomeActivity.class);
+                        // you pass the position you want the viewpager to show in the extra,
+                        // please don't forget to define and initialize the position variable
+                        // properly
+                        go.putExtra("viewpager_position", 2);
+
+                        startActivity(go);
                     }
                 },mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
